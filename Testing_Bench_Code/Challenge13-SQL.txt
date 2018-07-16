@@ -1,0 +1,14 @@
+CREATE DATABASE workshop;
+
+USE workshop;
+
+CREATE TABLE Employees (
+    CardNumber varchar(255)
+);
+
+INSERT INTO Employees (CardNumber) VALUES ("ABCDEC"); 
+
+CREATE USER 'workshop'@'localhost' IDENTIFIED BY 'DELETED';
+
+GRANT ALL PRIVILEGES ON * . * TO 'workshop'@'localhost';
+
