@@ -1,0 +1,45 @@
+################################################
+##             Config Testing Card            ##
+################################################
+; [Sector 0] Load (Mifare Default) key in reader (key location 0)
+FF 82 00 00 06 FF FF FF FF FF FF (9000)
+
+; [Sector 0] Authenticate sector 0, Block 0 with key A(60) at location 0
+FF 86 00 00 05 01 00 00 60 00 (9000)
+
+; [Sector 0]Clear sector 0, block 1:
+FF D6 00 01 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 (9000)
+
+; [Sector 0]Write hidden message("Welcome!") sector 0, block 2:
+FF D6 00 02 10 00 00 00 00 00 00 00 57 65 6c 63 6f 6d 65 21 00 (9000)
+
+; [Sector 0]Write access bits for sector 1:
+FF D6 00 03 10 FF FF FF FF FF FF 7B 47 88 69 11 11 11 11 11 11 (9000)
+
+; [Sector 1] Authenticate sector 1, Block 4 with key A(60) at location 0
+FF 86 00 00 05 01 00 04 60 00 (9000)
+
+; [Sector 1]Write hidden message("Find key B!") sector 1, block 4:
+FF D6 00 04 10 46 69 6e 64 20 6b 65 79 20 42 21 00 00 00 00 00 (9000)
+
+; [Sector 1]Write hidden message("You found me!") sector 1, block 5:
+FF D6 00 05 10 59 6f 75 20 66 6f 75 6e 64 20 6d 65 21 00 00 00 (9000)
+
+; [Sector 1]Write hidden message("This is flag") base64 encoded in sector 1, block 6:
+FF D6 00 06 10 56 47 68 70 63 79 42 70 63 79 42 6D 62 47 46 6E (9000)
+
+; [Sector 1]Write access bits for sector 1:
+FF D6 00 07 10 FF FF FF FF FF FF 1E 11 EE 69 A1 A2 A3 A4 A5 A6 (9000)
+
+; [Sector 2] Authenticate sector 1, Block 4 with key A(60) at location 0
+FF 86 00 00 05 01 00 08 60 00 (9000)
+
+; [Sector 2]Write hidden message("MFOC") sector 2, block 8:
+FF D6 00 08 10 6d 66 6f 63 00 00 00 00 00 00 00 00 00 00 00 00 (9000)
+
+; [Sector 2]Write hidden message("Congratulations") sector 2, block 9:
+FF D6 00 09 10 43 6f 6e 67 72 61 74 75 6c 61 74 69 6f 6e 73 21 (9000)
+
+; [Sector 2]Write access bits for sector 2:
+FF D6 00 0B 10 FF FF FF FF FF FF 1E 11 EE 69 DE AD BE EF 69 69 (9000)
+

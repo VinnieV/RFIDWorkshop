@@ -1,0 +1,50 @@
+
+Sector 1: Contains the ID of the employee
+http://www.binaryhexconverter.com/decimal-to-hex-converter
+http://xor.pw/
+Change employee number to 12350 (hex: 303E) (dec: 48, 62)
+Sector 5: Contain the amount of money and transactions and a checksum
+Transaction number (2 bytes) XOR Amount of money (2 bytes) = Checksum
+
+
+Sector 1: Challenge 9, Simple employee card
+Sector 0: Challenge 10, Magic Mifare --> Nothing to do for this one
+Sector 7: Challenge 12, Secure Vending Machine
+Sector 10: Challenge 11, vending machine
+Sector 12: Challenge 13, Bonus wtf challenge --> Nothing to do for this one
+
+################################################
+##            Config card Employee 1          ##
+################################################
+; Load (Mifare Default) key in reader (key location 0)
+FF 82 00 00 06 FF FF FF FF FF FF (9000)
+
+; #### SECTOR 1: Challenge 9, Simple employee card
+; [Sector 1] Authenticate sector 1, Block 4 with key A(60) at location 0
+FF 86 00 00 05 01 00 04 60 00 (9000)
+; 49 44 3a --> ID: 
+; 3039 --> 12345
+; [Sector 1]Write ID to sector 1, block 5:
+FF D6 00 05 10 49 44 3a 00 30 39 00 00 00 00 00 00 00 00 00 00 (9000)
+; [Sector 1]Write access bits for sector 1:
+FF D6 00 07 10 FF FF FF FF FF FF 1E 11 EE 69 A1 A2 A3 A4 A5 A6 (9000)
+
+; #### SECTOR 7: Challenge 12, Secure Vending Machine
+;Transaction number: 96 --> hex: 0060
+;Amount of money: 25,50 --> 2550 --> hex: 09F6
+;Checksum: 0060 xor 09F6 = 0996
+; [Sector 7] Authenticate to sector 7, Block 28 with key A(60) at location 0
+FF 86 00 00 05 01 00 1C 60 00 (9000)
+; [Sector 7] Write transaction number, amount of money and checksum for sector 7, block 28:
+FF D6 00 1C 10 00 60 00 00 09 F6 00 00 00 00 00 00 00 00 09 96 (9000)
+; [Sector 7]Write access bits for sector 7, block 31:
+FF D6 00 1F 10 FF FF FF FF FF FF 08 77 8F 69 AB FF AD FF BC FF (9000)
+
+; #### SECTOR 10: Challenge 11, Vending Machine
+;Amount of money: 15,34 --> 1531 --> hex: 05FB
+; [Sector 10] Authenticate to sector 10, Block 40 with key A(60) at location 0
+FF 86 00 00 05 01 00 28 60 00 (9000)
+; [Sector 10] Write amount of money for sector 10, block 40:
+FF D6 00 28 10 05 FB 00 00 00 00 00 00 00 00 00 00 00 00 00 00 (9000)
+; [Sector 10]Write access bits for sector 10, block 43:
+FF D6 00 2B 10 FF FF FF FF FF FF 08 77 8F 69 	 (9000)
